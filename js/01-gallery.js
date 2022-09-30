@@ -30,6 +30,7 @@ function createItemMarkup (items) {
 
 };
 
+let instance = "";
 function galleryItemClick(evt) {
     evt.preventDefault();
 
@@ -38,23 +39,22 @@ function galleryItemClick(evt) {
     }
 
     const urlValue = evt.target.getAttribute('data-source');
+
+    let instance = "";
     
-    const instance = basicLightbox.create(`
+     instance = basicLightbox.create(`
     <img src="${urlValue}" width="800" height="600">
 `);
 instance.show();
 
-galleryList.addEventListener('keydown', (evt) => {
+window.addEventListener('keydown', closeEscape);
+
+function closeEscape (evt) {
     if (evt.code === "Escape") {
         instance.close();
+        window.removeEventListener('keydown', closeEscape);
+       
     }
-});
-
 };
 
-
-
-
-
-
-
+};
